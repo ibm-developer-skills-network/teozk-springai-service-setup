@@ -45,16 +45,6 @@ public class ChatbotController {
         return new ChatResponse(aiResponse);
     }
 
-    /**
-     * Simple health check endpoint to verify the API is running
-     *
-     * @return A message indicating the API is up and running
-     */
-    @GetMapping("/health")
-    public String health() {
-        return "Chatbot API is up and running!";
-    }
-
     @PostMapping("/enhanced-chat")
     public EnhancedChatResponse enhancedChat(@RequestBody ChatRequest request) {
         // Validate the incoming request
