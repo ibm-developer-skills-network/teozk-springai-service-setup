@@ -1,1 +1,8 @@
 /Users/yahya/Downloads/customersupportchatbot copy/src/main/java/com/example/customersupportchatbot/CustomerSupportChatbotApplication.java
+/Users/yahya/Downloads/customersupportchatbot copy/src/main/java/com/example/customersupportchatbot/controller/ChatbotController.java
+/Users/yahya/Downloads/customersupportchatbot copy/src/main/java/com/example/customersupportchatbot/model/ChatRequest.java
+/Users/yahya/Downloads/customersupportchatbot copy/src/main/java/com/example/customersupportchatbot/model/ChatResponse.java
+/Users/yahya/Downloads/customersupportchatbot copy/src/main/java/com/example/customersupportchatbot/model/EnhancedChatResponse.java
+/Users/yahya/Downloads/customersupportchatbot copy/src/main/java/com/example/customersupportchatbot/model/GeminiRequest.java
+/Users/yahya/Downloads/customersupportchatbot copy/src/main/java/com/example/customersupportchatbot/model/GeminiResponse.java
+/Users/yahya/Downloads/customersupportchatbot copy/src/main/java/com/example/customersupportchatbot/service/GeminiAIService.java

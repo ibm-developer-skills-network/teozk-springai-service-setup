@@ -1,0 +1,71 @@
+package com.example.customersupportchatbot.controller;
+
+import com.example.customersupportchatbot.model.ChatRequest;
+import com.example.customersupportchatbot.model.ChatResponse;
+import com.example.customersupportchatbot.model.EnhancedChatResponse;
+import com.example.customersupportchatbot.service.GeminiAIService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/chatbot")
+public class ChatbotController {
+
+    private final GeminiAIService geminiAIService;
+
+    // Constructor injection of our service
+    @Autowired
+    public ChatbotController(GeminiAIService geminiAIService) {
+        this.geminiAIService = geminiAIService;
+    }
+
+    /**
+     * Endpoint that receives customer queries and returns AI-generated responses
+     *
+     * @param request The chat request containing the user's query
+     * @return A response with the AI-generated answer
+     */
+    @PostMapping("/chat")
+    public ChatResponse chat(@RequestBody ChatRequest request) {
+        // Validate the incoming request
+        if (request.getQuery() == null || request.getQuery().trim().isEmpty()) {
+            return new ChatResponse("Please provide a valid question or message.");
+        }
+
+        // Get a response from the Gemini AI service
+        String aiResponse = geminiAIService.generateResponse(request.getQuery());
+
+        // Return the response to the client
+        return new ChatResponse(aiResponse);
+    }
+
+    /**
+     * Simple health check endpoint to verify the API is running
+     *
+     * @return A message indicating the API is up and running
+     */
+    @GetMapping("/health")
+    public String health() {
+        return "Chatbot API is up and running!";
+    }
+
+    @PostMapping("/enhanced-chat")
+    public EnhancedChatResponse enhancedChat(@RequestBody ChatRequest request) {
+        // Validate the incoming request
+        if (request.getQuery() == null || request.getQuery().trim().isEmpty()) {
+            return new EnhancedChatResponse("Please provide a valid question or message.", "error");
+        }
+
+        // Get a response with category from the Gemini AI service
+        Map<String, String> result = geminiAIService.generateResponseWithCategory(request.getQuery());
+
+        // Return the enhanced response
+        return new EnhancedChatResponse(result.get("response"), result.get("category"));
+    }
+}
