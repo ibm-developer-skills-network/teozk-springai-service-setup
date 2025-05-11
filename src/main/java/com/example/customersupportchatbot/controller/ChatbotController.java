@@ -43,4 +43,18 @@ public class ChatbotController {
         // Return the response to the client
         return new ChatResponse(aiResponse);
     }
+
+    @PostMapping("/enhanced-chat")
+    public EnhancedChatResponse enhancedChat(@RequestBody ChatRequest request) {
+        // Validate the incoming request
+        if (request.getQuery() == null || request.getQuery().trim().isEmpty()) {
+            return new EnhancedChatResponse("Please provide a valid question or message.", "error");
+        }
+
+        // Get a response with category from the Gemini AI service
+        Map<String, String> result = geminiAIService.generateResponseWithCategory(request.getQuery());
+
+        // Return the enhanced response
+        return new EnhancedChatResponse(result.get("response"), result.get("category"));
+    }
 }
